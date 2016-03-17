@@ -18,9 +18,10 @@ function gatherArtboards() {
 
 function generateImageMaps(path) {
   for (var i=0; i<10; i++) { 
-    var longString = "<img src='"+i+".jpg' usemap='1'><map id='1' name='1'>\n";
+    var longString = "<img src='"+i+".png' usemap='#imagemap'><map id='imagemap' name='imagemap'>\n";
     var artboard = [artboards objectAtIndex:i];
-    [doc saveArtboardOrSlice:artboard toFile:path+i+".jpg"];
+    var artboardName = [artboard name];
+    [doc saveArtboardOrSlice:artboard toFile:path+i+".png"];
 
     var children = [artboard children];
     var layers = [];
@@ -37,7 +38,7 @@ function generateImageMaps(path) {
           x2 = Math.round(x1 + [absrect width]),
           y2 = Math.round(y1 + [absrect height]);
 
-      var string = "<area shape='rect' alt='' title='' coords='"+x1+","+y1+","+x2+","+y2+"' href='#' target='' />\n"
+      var string = "<area shape='rect' alt='"+ ([(layers[k]) name]).slice(1) +"' title='' coords='"+x1+","+y1+","+x2+","+y2+"' href='#' target='' />\n"
       longString = longString + string;
     }
     var longString = longString + "</map>";
